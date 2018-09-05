@@ -1,0 +1,11 @@
+<main>
+  {% for feature in site.features %}
+  <a class="anchor" id="{{ feature.id }}">VISIBLE</a>
+    <section>
+      <img class='redondo {% cycle 'pull-right', 'pull-left' %}' src='{{ feature.image }}' />
+      <h2>{{ feature.heading }}<span>{{ feature.subheading }}</span></h2>
+      <div class='lead'>{{ feature.content }}</div>
+    </section>
+  {% endfor %}
+  <hr />
+</main>
