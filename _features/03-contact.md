@@ -7,7 +7,4 @@ image: "assets_images/contactme.jpg"
 
 ---
 
-Contact email
-franiwalker@gmail.com
-Whatsapp or messages:
-+1 415 579 7137
+Contact me at _franiwalker@gmail.com_

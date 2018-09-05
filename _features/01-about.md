@@ -6,6 +6,13 @@ subheading:
 image: "assets_images/frani.jpg"
 ---
 
+It all started when my friend at CrossFit needed a dog walker.
+I was up for the task, I'm a dog owner myself, and I love sharing my time with doggies
 
+A few days went by until I realized this is the best job I could ever have,
+I love watching a happy dog smile after a nice walk.
 
-I love being able to share my time with doggies. It all started when a friend of CrossFit needed a dog walker, and I love his dog very much. From that moment, this is the best job you can have, I love looking at a happy dog ​​when I walk with you. From that moment I have dedicated myself to walking dogs and I love it. Some need to walk alone out of nervousness, aggressive behaviors and others can simply get out of four dogs because they love to share and have no problems between them.
+From that moment I have dedicated myself to walking dogs and I **love** it.
+
+I've come to known them, and I understand some will need to walk alone out of nervousness or aggressive behaviors.
+While others can simply get out on packs (4) because they also love to share and have no problems about it.
