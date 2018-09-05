@@ -7,4 +7,4 @@ image: "assets_images/contactme.jpg"
 
 ---
 
-Contact me at _franiwalker@gmail.com_
+Contact me at _franiwalksdogs@gmail.com_
