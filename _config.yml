@@ -1,7 +1,6 @@
 title: One Page Wonder - Jekyll
 description: A Jekyll Landing Page Theme
 sitename: Frani Walker
-baseurl: '/'
 sass:
   sass_dir: /assets/_sass
   style: :compressed
