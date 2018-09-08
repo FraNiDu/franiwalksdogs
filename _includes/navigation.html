@@ -1,25 +1,19 @@
-<nav role='navigation'style="background-color:#f78306;" >
-  <div class='container' style="float: right;">
 
-  <!--   <div class='navbar-header'>
-      <button type='button' data-toggle='collapse' data-target='#menu'>
-        <span class='sr-only'>Toggle navigation</span>
-        <span class='icon-bar'></span>
-        <span class='icon-bar'></span>
-        <span class='icon-bar'></span>
-      </button>
-      <a class='navbar-brand' href='#'</a>
-    </div> -->
 
-    <div id='menu' style="float: right; width:600px">
-      <ul>
-        {% for feature in site.features %}
-        <li>
-          <a href='#{{ feature.id }}'>{{ feature.name }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="position: fixed; background-color:#f78306;">
+  <a class="navbar-brand" href="#">FWD</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav" style="text-align: right">
+    <ul class="navbar-nav" style="float: right">
+      {% for feature in site.features %}
+      <li class="nav-item">
+        <a class="nav-link" href='#{{ feature.id }}'>{{ feature.name }}</a>
+      </li>
+      {% endfor %}
 
+
+    </ul>
   </div>
 </nav>
