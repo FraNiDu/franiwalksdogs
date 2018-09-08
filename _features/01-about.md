@@ -10,7 +10,7 @@ It all started when my friend at CrossFit needed a dog walker.
 I was up for the task, I'm a dog owner myself, and I love sharing my time with doggies
 
 A few days went by until I realized this is the best job I could ever have,
-I love watching a happy dogs smile after a nice walk.
+I love watching a happy dog's smile after a nice walk.
 
 From that moment I have dedicated myself to walking dogs and I **love** it.
 
