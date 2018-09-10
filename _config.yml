@@ -13,7 +13,7 @@ exclude:
   - LICENSE.txt
   - CNAME
 
-  plugins:
+plugins:
   - jekyll-analytics
 
 jekyll_analytics:
