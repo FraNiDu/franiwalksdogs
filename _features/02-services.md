@@ -36,4 +36,4 @@ I like to know my kids (and their parents) before taking them out, so go ahead a
   </tbody>
 </table>
 
-_*If you need any other services like: Bathing your Dog, two visits in a day a day, or petsitting in my home we can talk about that too._
+_*If you need any other services like: Bathing your Dog, two visits in a day, or petsitting in my home we can talk about that too._
