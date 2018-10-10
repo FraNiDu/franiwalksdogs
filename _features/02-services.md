@@ -22,10 +22,6 @@ I like to know my kids (and their parents) before taking them out, so go ahead a
   </thead>
   <tbody>
     <tr>
-      <td>Initial interview</td>
-      <td>USD $15.00</td>
-    </tr>
-    <tr>
       <td>Friendly Dog (walked in groups of 4)</td>
       <td>USD $20.000</td>
     </tr>
