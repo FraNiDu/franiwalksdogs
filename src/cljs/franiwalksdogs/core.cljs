@@ -11,12 +11,6 @@
 
 (defonce session (r/atom {:page :home}))
 
-; the navbar components are implemented via baking-soda [1]
-; library that provides a ClojureScript interface for Reactstrap [2]
-; Bootstrap 4 components.
-; [1] https://github.com/gadfly361/baking-soda
-; [2] http://reactstrap.github.io/
-
 (defn nav-link [uri title page]
   [b/NavItem
    [b/NavLink
@@ -33,14 +27,7 @@
      [b/NavbarToggler {:on-click #(swap! expanded? not)}]
      [b/Collapse {:is-open @expanded? :navbar true}
       [b/Nav {:class-name "mr-auto" :navbar true}
-       [nav-link "#/" "Home" :home]
-       [nav-link "#/about" "About" :about]]]]))
-
-(defn about-page []
-  [:div.container
-   [:div.row
-    [:div.col-md-12
-     [:img {:src "/img/warning_clojure.png"}]]]])
+       [nav-link "#/" "Home" :home] ]]]))
 
 (defn home-page []
   [:div.container
@@ -49,9 +36,8 @@
       [:div {:dangerouslySetInnerHTML
              {:__html (md->html docs)}}]])])
 
-(def pages
-  {:home #'home-page
-   :about #'about-page})
+(def pages 
+  {:home #'home-page})
 
 (defn page []
   [(pages (:page @session))])
@@ -63,9 +49,6 @@
 
 (secretary/defroute "/" []
   (swap! session assoc :page :home))
-
-(secretary/defroute "/about" []
-  (swap! session assoc :page :about))
 
 ;; -------------------------
 ;; History
