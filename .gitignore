@@ -13,3 +13,4 @@ profiles.clj
 .nrepl-port
 /log
 resources/public/css/screen.css
+.DS_Store
