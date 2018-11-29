@@ -34,7 +34,7 @@
     [:span.navbar-toggler-icon]]
    [:div#navbarNav.collapse.navbar-collapse 
     {:style {:text-align :right}}
-    [:ul.navbar-nav {:float :right}
+    [:ul.navbar-nav {:style { :float :right}}
      (for [feature features]
        ^{:key feature}
        [:li.nav-item>a.nav-link 
@@ -81,7 +81,7 @@
 
 (defn mount-components []
   (r/render [#'navbar] (.getElementById js/document "navbar"))
-  (r/render [#'page] (.getElementById js/document "app")))
+  #_(r/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
   ;; (ajax/load-interceptors!)
