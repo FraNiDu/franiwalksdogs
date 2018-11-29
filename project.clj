@@ -49,7 +49,20 @@
   :target-path "target/%s/"
   :main ^:skip-aot franiwalksdogs.core
 
+  :aliases {"sass" 
+            ["shell" "sassc" "sass/app.scss" "resources/public/css/screen.css"]}
+
+  :cooper {"web" ["lein" "run"]
+           "sass" ["lein" "auto" "sass"]
+           "cljs" ["lein" "cljsbuild" "auto"]}
+
+  :auto {"sass" {:file-pattern #".*\.scss$"
+                :paths ["sass"]}}
+
   :plugins [[lein-cljsbuild "1.1.7"]
+            [lein-auto "0.1.3"]
+            [lein-shell "0.5.0"]
+            [lein-cooper "1.2.2"]
             [lein-immutant "2.1.0"]]
   :clean-targets ^{:protect false}
   [:target-path [:cljsbuild :builds :app :compiler :output-dir] [:cljsbuild :builds :app :compiler :output-to]]
@@ -64,7 +77,9 @@
 
   :profiles
   {:uberjar {:omit-source true
-             :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
+             :prep-tasks ["compile" 
+                          ["sass"]
+                          ["cljsbuild" "once" "min"]]
              :cljsbuild
              {:builds
               {:min

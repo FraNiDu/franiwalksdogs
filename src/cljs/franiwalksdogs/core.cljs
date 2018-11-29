@@ -11,6 +11,10 @@
 
 (defonce session (r/atom {:page :home}))
 
+(def features ["Dog Walker" 
+               "Pricing + Services" 
+               "Contact"])
+
 (defn nav-link [uri title page]
   [b/NavItem
    [b/NavLink
@@ -19,18 +23,27 @@
     title]])
 
 (defn navbar []
-  (r/with-let [expanded? (r/atom true)]
-    [b/Navbar {:light true
-               :class-name "navbar-dark bg-primary"
-               :expand "md"}
-     [b/NavbarBrand {:href "/"} "franiwalksdogs"]
-     [b/NavbarToggler {:on-click #(swap! expanded? not)}]
-     [b/Collapse {:is-open @expanded? :navbar true}
-      [b/Nav {:class-name "mr-auto" :navbar true}
-       [nav-link "#/" "Home" :home] ]]]))
+  [:nav.navbar.navbar-expand-lg.navbar-light.bg-light 
+   {:style {:position :fixed :background-color "#F78306"}}
+   [:a.navbar-brand {:href "#"} "Frani walks dogs"]
+   [:button.navbar-toggler {:type :button
+                            :data-toggle :collapse
+                            :data-target "#navbarNav"
+                            :aria-controls "navbarNav"
+                            :aria-expanded false}
+    [:span.navbar-toggler-icon]]
+   [:div#navbarNav.collapse.navbar-collapse 
+    {:style {:text-align :right}}
+    [:ul.navbar-nav {:float :right}
+     (for [feature features]
+       ^{:key feature}
+       [:li.nav-item>a.nav-link 
+        {:href (str "#" feature)} 
+        feature])]]])
 
 (defn home-page []
   [:div.container
+   "hola daniel"
    (when-let [docs (:docs @session)]
      [:div.row>div.col-sm-12
       [:div {:dangerouslySetInnerHTML
@@ -45,10 +58,10 @@
 ;; -------------------------
 ;; Routes
 
-(secretary/set-config! :prefix "#")
-
-(secretary/defroute "/" []
-  (swap! session assoc :page :home))
+;; (secretary/set-config! :prefix "#")
+;; 
+;; (secretary/defroute "/" []
+;;   (swap! session assoc :page :home))
 
 ;; -------------------------
 ;; History
@@ -71,7 +84,7 @@
   (r/render [#'page] (.getElementById js/document "app")))
 
 (defn init! []
-  (ajax/load-interceptors!)
-  (fetch-docs!)
-  (hook-browser-navigation!)
+  ;; (ajax/load-interceptors!)
+  ;; (fetch-docs!)
+  ;; (hook-browser-navigation!)
   (mount-components))
