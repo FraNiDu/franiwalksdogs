@@ -113,7 +113,7 @@
      (clojure.string/capitalize err)]))
 
 (defn ajax-success-handler [response]
-  (.log js/console (str response)))
+  (js/alert "Thanks for your message, I'll be in contact with you shortly."))
 
 (defn ajax-error-handler [errors]
   (fn [{:keys [status response]}]
