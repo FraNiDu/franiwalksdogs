@@ -9,3 +9,7 @@
 (defn get-errors? [payload]
   (first (st/validate payload +struct+)))
 
+(defn get-error? [key payload]
+  (let [+struct+ (select-keys +struct+ [key])]
+    (first (st/validate payload +struct+))))
+

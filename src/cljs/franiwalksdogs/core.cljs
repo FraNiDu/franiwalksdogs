@@ -2,7 +2,7 @@
   (:require [reagent.core :as r]
             [franiwalksdogs.ajax :as ajax]
             [franiwalksdogs.captcha :as captcha]
-            [franiwalksdogs.validation :refer [get-errors?]]
+            [franiwalksdogs.validation :refer [get-errors? get-error?]]
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
@@ -44,7 +44,7 @@
                 :pull-class "float-right"
                 :image "/images/frani.jpg"
                 :element dog-walker
-                :text "Dog Walker"}
+                :text "About Me"}
                 {:id :pricing+services 
                  :pull-class "float-left"
                  :image "/images/pricing.jpg"
@@ -72,67 +72,105 @@
 (defn hero-unit []
   [:div.text-center>img.img-responseive.img-fluid 
    {:src "/images/frani_dog_walker.jpg"
-    :style {:padding "60px"
-            :display "inline"}}])
+    :style {:display "inline"}}])
 
-(defn feature-element [feature]
+(defn feature-element-expanded [feature]
   (let [{:keys [id text element pull-class image]} feature 
         css-class (str "redondo img-circle img-fluid " pull-class)]
-    [:div.row>div.col-12
-     [:section {:id id}
+    [:div.col-12.d-none.d-lg-block
+     [:section
       [:img {:class css-class :src image}]
       [:h2 text]
       [element]]]))
 
+(defn feature-element-mobile [feature]
+  (let [{:keys [id text element image]} feature 
+        css-class (str "redondo img-circle img-fluid")]
+    [:div.d-lg-none
+     [:div.col-12 [:h2 text]]
+     [:div
+      [:div.col-12 [element]]
+      [:div.col-12 {:style {:text-align :center}} [:img {:class css-class :src image}]]]]))
+
+(defn feature-element [feature]
+  [:div.row.mb-3 {:id (:id feature)}
+   [feature-element-expanded feature]
+   [feature-element-mobile feature]])
+
+(defn disable-event! [evt]
+  (when evt
+    (.preventDefault evt)
+    (.stopPropagation evt)))
+
 (defn bind [key fields]
   (fn [evt]
-    (.preventDefault evt)
-    (.stopPropagation evt)
+    (disable-event! evt)
     (swap! fields assoc key (-> evt .-target .-value))))
 
 (defn error-message [key errors]
-  (when-let [err (:name @errors)]
-    [:div.invalid-feedback {:style {:display :block}} err]))
+  (when-let [err (key @errors)]
+    [:div.invalid-feedback {:style {:display :block}} 
+     (clojure.string/capitalize err)]))
 
 (defn on-submit [fields errors]
   (fn [evt]
-    (.preventDefault evt)
-    (.stopPropagation evt)
+    (disable-event! evt)
+    (reset! errors {})
     (if-let [new-errors (get-errors? @fields)]
       (reset! errors new-errors))))
 
+(defn on-blur-validation [key fields errors]
+  (fn [evt]
+    (disable-event! evt)
+    (swap! errors dissoc key)
+    (when-let [nerrs (get-error? key @fields)]
+      (swap! errors merge nerrs))))
+
 (defn contact []
-  [:div
+  [:div#contact
    [:div.row>div.col-12
     [:h2 "Contact"]]
    [:div.row
-    [:div.col-6
+    [:div.col-12.col-lg-6
      [:form {:on-submit (on-submit fields errors)}
       [:div.form-group
        [:label.col-form-label {:for :name-input} "Name"]
        [:input#name-input.form-control {:type :text 
+                                        :auto-complete :off
                                         :on-change (bind :name fields)
+                                        :on-blur (on-blur-validation :name fields errors)
                                         :placeholder "Name"}]
        [error-message :name errors] ]
       [:div.form-group
        [:label.col-form-label {:for :email-input} "Email"]
        [:input#email-input.form-control {:type :email 
+                                         :auto-complete :off
                                          :on-change (bind :email fields)
+                                         :on-blur (on-blur-validation :email fields errors)
                                          :placeholder "Email"}]
        [error-message :email errors]]
       [:div.form-group
        [:label.col-form-label {:for :message} "Message"]
        [:textarea#message.form-control {:rows 3
+                                        :auto-complete :off
                                         :on-change (bind :message fields)
+                                         :on-blur (on-blur-validation :message fields errors)
                                         :placeholder "Message"}]
        [error-message :message errors]]
+
       [:div.form-group
        [captcha/min-captcha fields errors]
        [error-message :captcha errors]] ;; binds on it's own
-      [:button.btn.btn-primary {:type :submit
-                                :style {:float :right}} "Send"]]] 
 
-    [:div.col-6
+      [:div.form-group.mt-3.pt-3
+       [:button.btn.btn-primary.btn-lg {:type :submit 
+                                        :class "d-none d-lg-block"
+                                        :style {:float :right}} "Send"]
+       [:button.btn.btn-primary.btn-lg {:type :submit 
+                                        :class "btn-block d-lg-none"
+                                        :style {:float :right}} "Send"]]]] 
+
+    [:div.col-6.d-none.d-lg-block
      [:img {:class "redondo img-responsive img-fluid" 
             :src "/images/contactme.jpg"}]]]] )
 
@@ -143,7 +181,7 @@
    (for [{:keys [id] :as feature} features]
      ^{:key id} 
      [feature-element feature])
-   [:div.row>div.col-12 [table]]
+   [:div.row.mb-3>div.col-12 [table]]
    [:div.row>div.col-12 [contact]]
    [:hr]]))
 
