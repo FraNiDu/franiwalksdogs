@@ -3,11 +3,7 @@
             [franiwalksdogs.ajax :as ajax]
             [franiwalksdogs.captcha :as captcha]
             [franiwalksdogs.validation :refer [get-errors? get-error?]]
-            [ajax.core :refer [GET POST]])
-  (:import goog.History))
-
-(def fields (r/atom {}))
-(def errors (r/atom {}))
+            [ajax.core :refer [GET POST]]))
 
 (defn dog-walker []
   [:div.lead
@@ -54,20 +50,21 @@
 (defn navbar []
   [:nav.navbar.navbar-expand-lg.navbar-light
    {:style {:background-color "#F78306"}}
-   [:a.navbar-brand {:href "#"} "Frani walks dogs"]
-   [:button.navbar-toggler {:type :button
-                            :data-toggle :collapse
-                            :data-target "#navbarNav"
-                            :aria-controls "navbarNav"
-                            :aria-expanded false}
-    [:span.navbar-toggler-icon]]
-   [:div#navbarNav.collapse.navbar-collapse 
-    {:style {:text-align :right}}
-    [:ul.navbar-nav.ml-auto #_{:style { :position :absolute :right :2em}}
-     (for [{:keys [id text]} features]
-       ^{:key id}
-       [:li.nav-item>a.nav-link {:href (str "#" (name id))} text])
-     [:li.nav-item>a.nav-link {:href "#contact"} "Contact"]]]])
+   [:div.container
+    [:a.navbar-brand {:href "#"} "Frani walks dogs"]
+    [:button.navbar-toggler {:type :button
+                             :data-toggle :collapse
+                             :data-target "#navbarNav"
+                             :aria-controls "navbarNav"
+                             :aria-expanded false}
+     [:span.navbar-toggler-icon]]
+    [:div#navbarNav.collapse.navbar-collapse 
+     {:style {:text-align :right}}
+     [:ul.navbar-nav.ml-auto #_{:style { :position :absolute :right :2em}}
+      (for [{:keys [id text]} features]
+        ^{:key id}
+        [:li.nav-item>a.nav-link {:href (str "#" (name id))} text])
+      [:li.nav-item>a.nav-link {:href "#contact"} "Contact"]]]]])
 
 (defn hero-unit []
   [:div.text-center>img.img-responseive.img-fluid 
@@ -102,22 +99,49 @@
     (.preventDefault evt)
     (.stopPropagation evt)))
 
-(defn bind [key fields]
-  (fn [evt]
-    (disable-event! evt)
-    (swap! fields assoc key (-> evt .-target .-value))))
+(defn bind 
+  ([key fields]
+   (bind key fields identity))
+  ([key fields transform]
+   (fn [evt]
+     (disable-event! evt)
+     (swap! fields assoc key (-> evt .-target .-value transform)))))
 
 (defn error-message [key errors]
   (when-let [err (key @errors)]
     [:div.invalid-feedback {:style {:display :block}} 
      (clojure.string/capitalize err)]))
 
+(defn ajax-success-handler [response]
+  (.log js/console (str response)))
+
+(defn ajax-error-handler [errors]
+  (fn [{:keys [status response]}]
+    (when (= 400 status) 
+      (reset! errors response))))
+
+(defn ajax-call [fields errors]
+  (POST "/contact"
+        {:headers {"Accept" "application/transit+json"}
+         :params @fields
+         :handler ajax-success-handler
+         :error-handler (ajax-error-handler errors)}))
+
+(defn on-enter 
+  "Retorna un handler para un HTML Form, este handler delega en el handler parametrico
+  cuando detecta que la tecla apretada fue ENTER."
+  [handler]
+  (fn [evt]
+    (when (= 13 ( .-charCode evt))
+      (handler evt))))
+
 (defn on-submit [fields errors]
   (fn [evt]
     (disable-event! evt)
     (reset! errors {})
     (if-let [new-errors (get-errors? @fields)]
-      (reset! errors new-errors))))
+      (reset! errors new-errors)
+      (ajax-call fields errors))))
 
 (defn on-blur-validation [key fields errors]
   (fn [evt]
@@ -126,49 +150,60 @@
     (when-let [nerrs (get-error? key @fields)]
       (swap! errors merge nerrs))))
 
+(defn capitalize-words 
+  "Capitalize every word in a string"
+  [s]
+  (->> (clojure.string/split (str s) #"\b") 
+       (map clojure.string/capitalize)
+       clojure.string/join))
+
 (defn contact []
   [:div#contact
    [:div.row>div.col-12
     [:h2 "Contact"]]
    [:div.row
     [:div.col-12.col-lg-6
-     [:form {:on-submit (on-submit fields errors)}
-      [:div.form-group
-       [:label.col-form-label {:for :name-input} "Name"]
-       [:input#name-input.form-control {:type :text 
-                                        :auto-complete :off
-                                        :on-change (bind :name fields)
-                                        :on-blur (on-blur-validation :name fields errors)
-                                        :placeholder "Name"}]
-       [error-message :name errors] ]
-      [:div.form-group
-       [:label.col-form-label {:for :email-input} "Email"]
-       [:input#email-input.form-control {:type :email 
-                                         :auto-complete :off
-                                         :on-change (bind :email fields)
-                                         :on-blur (on-blur-validation :email fields errors)
-                                         :placeholder "Email"}]
-       [error-message :email errors]]
-      [:div.form-group
-       [:label.col-form-label {:for :message} "Message"]
-       [:textarea#message.form-control {:rows 3
-                                        :auto-complete :off
-                                        :on-change (bind :message fields)
-                                         :on-blur (on-blur-validation :message fields errors)
-                                        :placeholder "Message"}]
-       [error-message :message errors]]
+     (let [fields (r/atom {}) 
+           errors (r/atom {})
+           handler (on-submit fields errors)]
+       [:form {:on-key-press (on-enter handler)
+               :on-submit handler}
+        [:div.form-group
+         [:label.col-form-label {:for :name-input} "Name"]
+         [:input#name-input.form-control {:type :text 
+                                          :auto-complete :off
+                                          :on-change (bind :name fields capitalize-words)
+                                          :on-blur (on-blur-validation :name fields errors)
+                                          :placeholder "Name"}]
+         [error-message :name errors] ]
+        [:div.form-group
+         [:label.col-form-label {:for :email-input} "Email"]
+         [:input#email-input.form-control {:type :email 
+                                           :auto-complete :off
+                                           :on-change (bind :email fields)
+                                           :on-blur (on-blur-validation :email fields errors)
+                                           :placeholder "Email"}]
+         [error-message :email errors]]
+        [:div.form-group
+         [:label.col-form-label {:for :message} "Message"]
+         [:textarea#message.form-control {:rows 3
+                                          :auto-complete :off
+                                          :on-change (bind :message fields)
+                                          :on-blur (on-blur-validation :message fields errors)
+                                          :placeholder "Message"}]
+         [error-message :message errors]]
 
-      [:div.form-group
-       [captcha/min-captcha fields errors]
-       [error-message :captcha errors]] ;; binds on it's own
+        [:div.form-group
+         [captcha/min-captcha fields errors]
+         [error-message :captcha errors]] ;; binds on it's own
 
-      [:div.form-group.mt-3.pt-3
-       [:button.btn.btn-primary.btn-lg {:type :submit 
-                                        :class "d-none d-lg-block"
-                                        :style {:float :right}} "Send"]
-       [:button.btn.btn-primary.btn-lg {:type :submit 
-                                        :class "btn-block d-lg-none"
-                                        :style {:float :right}} "Send"]]]] 
+        [:div.form-group.mt-3.pt-3
+         [:button.btn.btn-primary.btn-lg {:type :submit 
+                                          :class "d-none d-lg-block"
+                                          :style {:float :right}} "Send"]
+         [:button.btn.btn-primary.btn-lg {:type :submit 
+                                          :class "btn-block d-lg-none"
+                                          :style {:float :right}} "Send"]]])] 
 
     [:div.col-6.d-none.d-lg-block
      [:img {:class "redondo img-responsive img-fluid" 
