@@ -3,12 +3,11 @@
     [reagent.core :as r]))
 
 (def site-key "6Lfm_n0UAAAAAAs3jz7FKPGK2KkZbe8QV7BgJrBf")
-(def grecaptcha (js* "window.grecaptcha"))
 
 (defn- on-mount [captcha-id fields errors]
   (fn [div]
     (reset! captcha-id
-            (.render grecaptcha 
+            (.render (js* "grecaptcha")
                      (-> div r/dom-node .-firstChild)
                      (clj->js {:sitekey site-key
                                :expired-callback #(swap! fields dissoc :captcha)

@@ -87,7 +87,7 @@
                  :infer-externs true
                  :closure-warnings
                  {:externs-validation :off :non-standard-jsdoc :off}
-                 :externs ["react/externs/react.js"]}}}}
+                 :externs ["react/externs/react.js" "./externs.js"]}}}}
              
              
              :aot :all
