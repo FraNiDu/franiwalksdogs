@@ -2,6 +2,7 @@
   (:require [reagent.core :as r]
             [franiwalksdogs.ajax :as ajax]
             [franiwalksdogs.captcha :as captcha]
+            [franiwalksdogs.validation :refer [get-errors?]]
             [ajax.core :refer [GET POST]])
   (:import goog.History))
 
@@ -28,7 +29,7 @@
    [:tbody
     [:tr
      [:td "Friendly Dog (walked in groups of 4)"]
-     [:td "USD $20.00"]]
+     [:td "USD $25.00"]]
     [:tr
      [:td "Aggressive Dog (walked alone)"]
      [:td "USD $60.00"]]]])
@@ -39,7 +40,6 @@
    [:p "My neighborhoods are: Rinchmond District, Laurel Heights, Presidio Heights, Cow Hollow and Haight-Ashbury."]
    [:p "I like to know my kids (and their parents) before taking them out, so go ahead an schedule an initial interview"]])
 
-
 (def features [{:id :dog-walker 
                 :pull-class "float-right"
                 :image "/images/frani.jpg"
@@ -49,8 +49,7 @@
                  :pull-class "float-left"
                  :image "/images/pricing.jpg"
                  :element pricing
-                 :text "Pricing + Services"}
-                ])
+                 :text "Pricing + Services"}])
 
 (defn navbar []
   [:nav.navbar.navbar-expand-lg.navbar-light
@@ -64,7 +63,7 @@
     [:span.navbar-toggler-icon]]
    [:div#navbarNav.collapse.navbar-collapse 
     {:style {:text-align :right}}
-    [:ul.navbar-nav.mr-auto #_{:style { :position :absolute :right :2em}}
+    [:ul.navbar-nav.ml-auto #_{:style { :position :absolute :right :2em}}
      (for [{:keys [id text]} features]
        ^{:key id}
        [:li.nav-item>a.nav-link {:href (str "#" (name id))} text])
@@ -85,33 +84,60 @@
       [:h2 text]
       [element]]]))
 
+(defn bind [key fields]
+  (fn [evt]
+    (.preventDefault evt)
+    (.stopPropagation evt)
+    (swap! fields assoc key (-> evt .-target .-value))))
+
+(defn error-message [key errors]
+  (when-let [err (:name @errors)]
+    [:div.invalid-feedback {:style {:display :block}} err]))
+
+(defn on-submit [fields errors]
+  (fn [evt]
+    (.preventDefault evt)
+    (.stopPropagation evt)
+    (if-let [new-errors (get-errors? @fields)]
+      (reset! errors new-errors))))
+
 (defn contact []
   [:div
    [:div.row>div.col-12
     [:h2 "Contact"]]
    [:div.row
     [:div.col-6
-     [:form
+     [:form {:on-submit (on-submit fields errors)}
       [:div.form-group
        [:label.col-form-label {:for :name-input} "Name"]
-       [:input#name-input.form-control {:type :text :placeholder "Name"}] ]
+       [:input#name-input.form-control {:type :text 
+                                        :on-change (bind :name fields)
+                                        :placeholder "Name"}]
+       [error-message :name errors] ]
       [:div.form-group
        [:label.col-form-label {:for :email-input} "Email"]
-       [:input#email-input.form-control {:type :email :placeholder "Email"}]]
+       [:input#email-input.form-control {:type :email 
+                                         :on-change (bind :email fields)
+                                         :placeholder "Email"}]
+       [error-message :email errors]]
       [:div.form-group
        [:label.col-form-label {:for :message} "Message"]
        [:textarea#message.form-control {:rows 3
-                                        :placeholder "Message"}]]
+                                        :on-change (bind :message fields)
+                                        :placeholder "Message"}]
+       [error-message :message errors]]
       [:div.form-group
-       [captcha/min-captcha fields errors]]
+       [captcha/min-captcha fields errors]
+       [error-message :captcha errors]] ;; binds on it's own
       [:button.btn.btn-primary {:type :submit
-                                :style {:float :right}} "Send"]]]
+                                :style {:float :right}} "Send"]]] 
 
     [:div.col-6
      [:img {:class "redondo img-responsive img-fluid" 
             :src "/images/contactme.jpg"}]]]] )
 
 (defn layout []
+  (fn []
   [:div.container 
    [:div.row>div.col-12 [hero-unit]]
    (for [{:keys [id] :as feature} features]
@@ -119,10 +145,7 @@
      [feature-element feature])
    [:div.row>div.col-12 [table]]
    [:div.row>div.col-12 [contact]]
-   [:hr]
-   
-   ])
-
+   [:hr]]))
 
 (defn footer []
   [:div.container>div.row>div.col-12
