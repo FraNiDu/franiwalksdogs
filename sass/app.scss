@@ -1,18 +1,26 @@
-//---
-//layout: compress
-//---
-
 @charset 'utf-8';
-@import 'bootstrap';
 
-@import 'layout';
-@import 'nav';
-@import 'header';
+@import 'bootstrap/bootstrap';
+// // 
+// @import 'layout';
+// // @import 'nav';
+// @import 'header';
+// 
+
+.img-circle {
+  border-radius: 50%;
+}
 
 @import 'main';
 @import 'redondo';
 @import 'anchor';
 
+.navbar a {
+  text-align: right;
+  color: white !important;
+}
 
-
-
+img.redondo {
+  width: 400px;
+  height: 390px;
+}
