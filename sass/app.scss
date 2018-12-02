@@ -1,0 +1,30 @@
+@charset 'utf-8';
+
+@import 'bootstrap/bootstrap';
+// // 
+// @import 'layout';
+// // @import 'nav';
+// @import 'header';
+// 
+
+.img-circle {
+  border-radius: 50%;
+}
+
+@import 'main';
+@import 'redondo';
+@import 'anchor';
+
+.navbar a {
+  text-align: right;
+  color: white !important;
+}
+
+img.redondo {
+  width: 400px;
+  height: 390px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
