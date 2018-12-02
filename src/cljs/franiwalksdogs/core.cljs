@@ -5,6 +5,8 @@
             [franiwalksdogs.validation :refer [get-errors? get-error?]]
             [ajax.core :refer [GET POST]]))
 
+(def captcha-loaded? (r/atom false))
+
 (defn dog-walker []
   [:div.lead
    [:p "It all started when my friend at CrossFit needed a dog walker.
@@ -127,12 +129,14 @@
          :handler ajax-success-handler
          :error-handler (ajax-error-handler errors)}))
 
+(def ENTER-KEY-CODE 13)
+
 (defn on-enter 
   "Retorna un handler para un HTML Form, este handler delega en el handler parametrico
   cuando detecta que la tecla apretada fue ENTER."
   [handler]
   (fn [evt]
-    (when (= 13 ( .-charCode evt))
+    (when (= ENTER-KEY-CODE ( .-charCode evt))
       (handler evt))))
 
 (defn on-submit [fields errors]
@@ -193,9 +197,10 @@
                                           :placeholder "Message"}]
          [error-message :message errors]]
 
-        [:div.form-group
-         [captcha/min-captcha fields errors]
-         [error-message :captcha errors]] ;; binds on it's own
+        (when @captcha-loaded?
+          [:div.form-group
+           [captcha/min-captcha fields errors]
+           [error-message :captcha errors]])
 
         [:div.form-group.mt-3.pt-3
          [:button.btn.btn-primary.btn-lg {:type :submit 
@@ -237,5 +242,7 @@
             (.getElementById js/document "footer")))
 
 (defn init! []
+  (set! (.-captchaLoaded js/window) 
+        #(reset! captcha-loaded? true))
   (ajax/load-interceptors!)
   (mount-components))

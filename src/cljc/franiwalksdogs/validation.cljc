@@ -9,10 +9,11 @@
    :validate #?(:clj captcha/check-response
                 :cljs (constantly true))})
 
-(def +struct+ {:name [st/required st/string]
-               :email [st/required st/string st/email]
-               :message [st/required st/string]
-               :captcha [st/required [valid-captcha?]]})
+(def +struct+ {:name [st/required st/string [st/min-count 2] [st/max-count 155]]
+               :email [st/required st/string st/email [st/min-count 2] [st/max-count 155]]
+               :message [st/required st/string [st/min-count 5] [st/max-count 2000]]
+               :captcha [st/required 
+                         [valid-captcha?]]})
 
 (defn get-errors? [payload]
   (first (st/validate payload +struct+)))

@@ -2,7 +2,7 @@
   (:require [franiwalksdogs.layout :as layout]
             [franiwalksdogs.validation :refer [get-errors?]]
             [franiwalksdogs.email :as email]
-            [franiwalksdogs.db.core :as db]
+            ;; [franiwalksdogs.db.core :as db]
             [selmer.parser :as selmer]
             [compojure.core :refer [defroutes GET POST]]
             [ring.util.http-response :as response]

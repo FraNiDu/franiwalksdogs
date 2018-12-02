@@ -7,12 +7,12 @@
 (defn- on-mount [captcha-id fields errors]
   (fn [div]
     (reset! captcha-id
-            (.render (js* "grecaptcha")
-                     (-> div r/dom-node .-firstChild)
-                     (clj->js {:sitekey site-key
-                               :expired-callback #(swap! fields dissoc :captcha)
-                               :callback #(do (swap! errors dissoc :captcha)
-                                              (swap! fields assoc :captcha %))})))))
+            (js/window.grecaptcha.render
+              (-> div r/dom-node .-firstChild)
+              (clj->js {:sitekey site-key
+                        :expired-callback #(swap! fields dissoc :captcha)
+                        :callback #(do (swap! errors dissoc :captcha)
+                                       (swap! fields assoc :captcha %))})))))
 
 (defn on-update [captcha-id errors]
   (fn [this old-argv]

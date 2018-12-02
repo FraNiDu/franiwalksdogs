@@ -16,13 +16,17 @@
     :response response}})
 
 (defn- endpoint-call [response]
+  (log/info (format "(endpoint-call response=\"%s\")" response))
   (let [payload (mk-payload response)]
     (try 
+      (log/info (format "(endpoint-call payload=\"%s\")" payload))
       (client/post verify-endpoint payload)
       (catch Exception e
-        (log/error (str "While calling captcha's verify " e))))))
+        (log/error (str "While calling captcha's verify " e))
+        false))))
 
 (defn- parse-response [response]
+  (log/info (format "(parse-response response=\"%s\")" response))
   (if response
     (if (= 200 (:status response))
       (-> response
@@ -31,6 +35,7 @@
           :success))))
 
 (defn check-response [response]
-  (if (:dev env true)
+  (log/info (format "(check-response response=\"%s\")" response))
+  (if (:dev env false)
     true 
     (-> response endpoint-call parse-response))) 
