@@ -26,10 +26,10 @@
      [:th "Prices"]]]
    [:tbody
     [:tr
-     [:td "Friendly Dog (walked in groups of 4, for 30 minutes)"]
+     [:td "Friendly Dog Walked in groups up to four dogs, for 30 minutes.)"]
      [:td "USD $25.00"]]
     [:tr
-     [:td "Walked in groups of 4, for 60 minutes"]
+     [:td "Walked in groups up to four dogs, for 60 minutes."]
      [:td "USD $35.00"]]
      [:tr
       [:td "Aggressive Dog (walked alone)"]
