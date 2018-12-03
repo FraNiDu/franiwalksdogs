@@ -10,8 +10,8 @@
 (defn dog-walker []
   [:div.lead
    [:p "It all started when my friend at CrossFit needed a dog walker.
-       I was up for the task, I’m a dog owner myself, 
-       and I love sharing my time with doggies"]
+       I was up for the task, I’m a dog owner myself,
+       and I love sharing my time with doggies."]
    [:p "A few days went by until I realized this is the best job I could ever have, I love watching a happy dog’s smile after a nice walk."]
    [:p "From that moment I have dedicated myself to walking dogs and I " [:strong "love"] " it."]
    [:p "I’ve come to known them, and I understand some will need to walk alone out of nervousness or aggressive behaviors. While others can simply get out on packs (4) because they also love to share and have no problems about it."]])
@@ -35,15 +35,15 @@
 (defn pricing []
   [:div.lead
    [:p "My services include picking up/bringing back your furry child, walking out with him/her for an hour, I’ll sent you pictures, and if I notice anything out of the ordinary I’ll let you know immediately."]
-   [:p "My neighborhoods are: Rinchmond District, Laurel Heights, Presidio Heights, Cow Hollow and Haight-Ashbury."]
-   [:p "I like to know my kids (and their parents) before taking them out, so go ahead an schedule an initial interview"]])
+   [:p "My neighborhoods are: Richmond District, Laurel Heights, Presidio Heights, Cow Hollow and Haight-Ashbury."]
+   [:p "I like to know my kids (and their parents) before taking them out, so go ahead an schedule an initial interview."]])
 
-(def features [{:id :dog-walker 
+(def features [{:id :dog-walker
                 :pull-class "float-right"
                 :image "/images/frani.jpg"
                 :element dog-walker
                 :text "About Me"}
-                {:id :pricing+services 
+                {:id :pricing+services
                  :pull-class "float-left"
                  :image "/images/pricing.jpg"
                  :element pricing
@@ -60,7 +60,7 @@
                              :aria-controls "navbarNav"
                              :aria-expanded false}
      [:span.navbar-toggler-icon]]
-    [:div#navbarNav.collapse.navbar-collapse 
+    [:div#navbarNav.collapse.navbar-collapse
      {:style {:text-align :right}}
      [:ul.navbar-nav.ml-auto #_{:style { :position :absolute :right :2em}}
       (for [{:keys [id text]} features]
@@ -69,12 +69,12 @@
       [:li.nav-item>a.nav-link {:href "#contact"} "Contact"]]]]])
 
 (defn hero-unit []
-  [:div.text-center>img.img-responseive.img-fluid 
+  [:div.text-center>img.img-responseive.img-fluid
    {:src "/images/frani_dog_walker.jpg"
     :style {:display "inline"}}])
 
 (defn feature-element-expanded [feature]
-  (let [{:keys [id text element pull-class image]} feature 
+  (let [{:keys [id text element pull-class image]} feature
         css-class (str "redondo img-circle img-fluid " pull-class)]
     [:div.col-12.d-none.d-lg-block
      [:section
@@ -83,7 +83,7 @@
       [element]]]))
 
 (defn feature-element-mobile [feature]
-  (let [{:keys [id text element image]} feature 
+  (let [{:keys [id text element image]} feature
         css-class (str "redondo img-circle img-fluid")]
     [:div.d-lg-none
      [:div.col-12 [:h2 text]]
@@ -101,7 +101,7 @@
     (.preventDefault evt)
     (.stopPropagation evt)))
 
-(defn bind 
+(defn bind
   ([key fields]
    (bind key fields identity))
   ([key fields transform]
@@ -111,7 +111,7 @@
 
 (defn error-message [key errors]
   (when-let [err (key @errors)]
-    [:div.invalid-feedback {:style {:display :block}} 
+    [:div.invalid-feedback {:style {:display :block}}
      (clojure.string/capitalize err)]))
 
 (defn ajax-success-handler [response]
@@ -119,7 +119,7 @@
 
 (defn ajax-error-handler [errors]
   (fn [{:keys [status response]}]
-    (when (= 400 status) 
+    (when (= 400 status)
       (reset! errors response))))
 
 (defn ajax-call [fields errors]
@@ -131,7 +131,7 @@
 
 (def ENTER-KEY-CODE 13)
 
-(defn on-enter 
+(defn on-enter
   "Retorna un handler para un HTML Form, este handler delega en el handler parametrico
   cuando detecta que la tecla apretada fue ENTER."
   [handler]
@@ -154,10 +154,10 @@
     (when-let [nerrs (get-error? key @fields)]
       (swap! errors merge nerrs))))
 
-(defn capitalize-words 
+(defn capitalize-words
   "Capitalize every word in a string"
   [s]
-  (->> (clojure.string/split (str s) #"\b") 
+  (->> (clojure.string/split (str s) #"\b")
        (map clojure.string/capitalize)
        clojure.string/join))
 
@@ -167,14 +167,14 @@
     [:h2 "Contact"]]
    [:div.row
     [:div.col-12.col-lg-6
-     (let [fields (r/atom {}) 
+     (let [fields (r/atom {})
            errors (r/atom {})
            handler (on-submit fields errors)]
        [:form {:on-key-press (on-enter handler)
                :on-submit handler}
         [:div.form-group
          [:label.col-form-label {:for :name-input} "Name"]
-         [:input#name-input.form-control {:type :text 
+         [:input#name-input.form-control {:type :text
                                           :auto-complete :off
                                           :on-change (bind :name fields capitalize-words)
                                           :on-blur (on-blur-validation :name fields errors)
@@ -182,7 +182,7 @@
          [error-message :name errors] ]
         [:div.form-group
          [:label.col-form-label {:for :email-input} "Email"]
-         [:input#email-input.form-control {:type :email 
+         [:input#email-input.form-control {:type :email
                                            :auto-complete :off
                                            :on-change (bind :email fields)
                                            :on-blur (on-blur-validation :email fields errors)
@@ -203,23 +203,23 @@
            [error-message :captcha errors]])
 
         [:div.form-group.mt-3.pt-3
-         [:button.btn.btn-primary.btn-lg {:type :submit 
+         [:button.btn.btn-primary.btn-lg {:type :submit
                                           :class "d-none d-lg-block"
                                           :style {:float :right}} "Send"]
-         [:button.btn.btn-primary.btn-lg {:type :submit 
+         [:button.btn.btn-primary.btn-lg {:type :submit
                                           :class "btn-block d-lg-none"
-                                          :style {:float :right}} "Send"]]])] 
+                                          :style {:float :right}} "Send"]]])]
 
     [:div.col-6.d-none.d-lg-block
-     [:img {:class "redondo img-responsive img-fluid" 
+     [:img {:class "redondo img-responsive img-fluid"
             :src "/images/contactme.jpg"}]]]] )
 
 (defn layout []
   (fn []
-  [:div.container 
+  [:div.container
    [:div.row>div.col-12 [hero-unit]]
    (for [{:keys [id] :as feature} features]
-     ^{:key id} 
+     ^{:key id}
      [feature-element feature])
    [:div.row.mb-3>div.col-12 [table]]
    [:div.row>div.col-12 [contact]]
@@ -234,15 +234,15 @@
 ;; Initialize app
 
 (defn mount-components []
-  (r/render [#'navbar] 
+  (r/render [#'navbar]
             (.getElementById js/document "navbar"))
-  (r/render [#'layout] 
+  (r/render [#'layout]
             (.getElementById js/document "app"))
-  (r/render [#'footer] 
+  (r/render [#'footer]
             (.getElementById js/document "footer")))
 
 (defn init! []
-  (set! (.-captchaLoaded js/window) 
+  (set! (.-captchaLoaded js/window)
         #(reset! captcha-loaded? true))
   (ajax/load-interceptors!)
   (mount-components))
