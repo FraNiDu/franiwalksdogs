@@ -26,15 +26,18 @@
      [:th "Prices"]]]
    [:tbody
     [:tr
-     [:td "Friendly Dog (walked in groups of 4)"]
+     [:td "Friendly Dog (walked in groups of 4, for 30 minutes)"]
      [:td "USD $25.00"]]
     [:tr
-     [:td "Aggressive Dog (walked alone)"]
-     [:td "USD $60.00"]]]])
+     [:td "Walked in groups of 4, for 60 minutes"]
+     [:td "USD $35.00"]]
+     [:tr
+      [:td "Aggressive Dog (walked alone)"]
+      [:td "USD $60.00"]]]])
 
 (defn pricing []
   [:div.lead
-   [:p "My services include picking up/bringing back your furry child, walking out with him/her for an hour, I’ll sent you pictures, and if I notice anything out of the ordinary I’ll let you know immediately."]
+   [:p "My services include picking up/bringing back your furry child, walking out with him/her for an thirty minutes or one hour, I’ll sent you pictures, and if I notice anything out of the ordinary I’ll let you know immediately."]
    [:p "My neighborhoods are: Richmond District, Laurel Heights, Presidio Heights, Cow Hollow and Haight-Ashbury."]
    [:p "I like to know my kids (and their parents) before taking them out, so go ahead an schedule an initial interview."]])
 
