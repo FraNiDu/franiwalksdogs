@@ -1,11 +1,6 @@
 @charset 'utf-8';
 
 @import 'bootstrap/bootstrap';
-// // 
-// @import 'layout';
-// // @import 'nav';
-// @import 'header';
-// 
 
 .img-circle {
   border-radius: 50%;
@@ -27,4 +22,20 @@ img.redondo {
 
 html {
   scroll-behavior: smooth;
+}
+
+.titulo {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.contenido {
+  font-family: 'Roboto', sans-serif;
+}
+
+table.contenido {
+  font-size: 1.25rem
+}
+
+div#navbar {
+  font-family: 'Ubuntu', sans-serif;
 }
