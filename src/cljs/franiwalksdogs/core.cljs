@@ -228,7 +228,7 @@
 
 (defn layout []
   (fn []
-    [:div.container
+    [:div.container {:style {:text-align :justify}}
      [:div.row>div.col-12 [hero-unit]]
      (for [{:keys [id] :as feature} features]
        ^{:key id}
