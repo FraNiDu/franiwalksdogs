@@ -23,20 +23,26 @@
    [:thead
     [:tr
      [:th "Services"]
-     [:th "Prices"]]]
+     [:th "5 Days"]
+     [:th "3 Days"]
+     [:th "1 Day"]]]
+
    [:tbody
     [:tr
      [:td "Friendly doggies (Dog Walked in groups up to four dogs, for 30 minutes.)"]
-     [:td "USD $25.00"]]
+     [:td "$25.00"]
+     [:td "$30.00"]
+     [:td "$35.00"]]
     [:tr
      [:td "Walked in groups up to four dogs, for 60 minutes."]
-     [:td "USD $35.00"]]
+     [:td "$30.00"]
+     [:td "$35.00"]
+     [:td "$40.00"]]
     [:tr
      [:td "Walked alone for 60 minutes."]
-     [:td "USD $40.00"]]
-    [:tr
-     [:td "Aggressive Dog (walked alone)"]
-     [:td "USD $60.00"]]]])
+     [:td "$35.00"]
+     [:td "$40.00"]
+     [:td "$50.00"]]]])
 
 (defn pricing []
   [:div.lead.contenido
@@ -51,7 +57,7 @@
                 :text "About Me"}
                {:id :pricing+services
                 :pull-class "float-left"
-                :image "/images/bruno.jpg"
+                :image "/images/bruno2.jpg"
                 :element pricing
                 :text "Pricing + Services"}])
 
@@ -75,9 +81,20 @@
       [:li.nav-item>a.nav-link {:href "#contact"} "Contact"]]]]])
 
 (defn hero-unit []
-  [:div.text-center>img.img-responseive.img-fluid
-   {:src "/images/frani_dog_walker.jpg"
-    :style {:display "inline"}}])
+  [:div
+
+   [:div.text-center>img.img-responseive.img-fluid
+    {:src "/images/frani_dog_walker.jpg"
+     :style {:display "inline"}}]
+
+   [:div.text-center>img.img-responseive.img-fluid
+    {:src "/images/frani_dog_walker.jpg"
+     :style {:display "inline"}}]])
+
+#_(defn hero-unit [])
+[:div.text-center>img.img-responseive.img-fluid
+ {:src "/images/frani_dog_walker.jpg"
+  :style {:display "inline"}}]
 
 (defn feature-element-expanded [feature]
   (let [{:keys [text element pull-class image]} feature
