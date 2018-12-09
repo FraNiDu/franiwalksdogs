@@ -81,15 +81,9 @@
       [:li.nav-item>a.nav-link {:href "#contact"} "Contact"]]]]])
 
 (defn hero-unit []
-  [:div
-
-   [:div.text-center>img.img-responseive.img-fluid
-    {:src "/images/frani_dog_walker.jpg"
-     :style {:display "inline"}}]
-
-   [:div.text-center>img.img-responseive.img-fluid
-    {:src "/images/frani_dog_walker.jpg"
-     :style {:display "inline"}}]])
+  [:div.text-center>img.img-responseive.img-fluid
+   {:src "/images/frani_dog_walker.jpg"
+    :style {:display "inline"}}])
 
 #_(defn hero-unit [])
 [:div.text-center>img.img-responseive.img-fluid
