@@ -85,11 +85,6 @@
    {:src "/images/frani_dog_walker.jpg"
     :style {:display "inline"}}])
 
-#_(defn hero-unit [])
-[:div.text-center>img.img-responseive.img-fluid
- {:src "/images/frani_dog_walker.jpg"
-  :style {:display "inline"}}]
-
 (defn feature-element-expanded [feature]
   (let [{:keys [text element pull-class image]} feature
         css-class (str "redondo img-circle img-fluid " pull-class)]
