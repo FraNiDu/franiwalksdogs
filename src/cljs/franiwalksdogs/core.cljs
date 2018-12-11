@@ -48,7 +48,7 @@
   [:div.lead.contenido
    [:p "My services include picking up/bringing back your furry child, walking out with him/her for an thirty minutes or one hour, I’ll sent you pictures, and if I notice anything out of the ordinary I’ll let you know immediately."]
    [:p "My neighborhoods are: Richmond District, Laurel Heights, Presidio Heights, Cow Hollow and Haight-Ashbury."]
-   [:p "I like to know my kids (and their parents) before taking them out, so go ahead an schedule an initial interview."]])
+   [:p "I like to know my doggies (and their parents) before taking them out, so go ahead an schedule an initial interview."]])
 
 (def features [{:id :dog-walker
                 :pull-class "float-right"
