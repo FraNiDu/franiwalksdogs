@@ -15,7 +15,9 @@ profiles.clj
 /.env
 .nrepl-port
 /log
+.idea/
 resources/public/css/screen.css
 .DS_Store
+*.iml
 .rebel_readline_history
 nashorn_code_cache/

@@ -30,19 +30,19 @@
    [:tbody
     [:tr
      [:td "Friendly doggies (Dog Walked in groups up to four dogs, for 30 minutes.)"]
+     [:td "$20.00"]
+     [:td "$25.00"]
+     [:td "$30.00"]]
+    [:tr
+     [:td "Walked in groups up to four dogs, for 60 minutes."]
      [:td "$25.00"]
      [:td "$30.00"]
      [:td "$35.00"]]
     [:tr
-     [:td "Walked in groups up to four dogs, for 60 minutes."]
+     [:td "Walked alone for 60 minutes."]
      [:td "$30.00"]
      [:td "$35.00"]
-     [:td "$40.00"]]
-    [:tr
-     [:td "Walked alone for 60 minutes."]
-     [:td "$35.00"]
-     [:td "$40.00"]
-     [:td "$50.00"]]]])
+     [:td "$40.00"]]]])
 
 (defn pricing []
   [:div.lead.contenido
