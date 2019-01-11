@@ -14,15 +14,17 @@
        and I love sharing my time with doggies."]
    [:p "A few days went by until I realized this is the best job I could ever have, I love watching a happy dog’s smile after a nice walk."]
    [:p "From that moment I have dedicated myself to walking dogs and I " [:strong "love"] " it."]
-   [:p "I’ve come to known them, and I understand some will need to walk alone out of nervousness or aggressive behaviors. While others can simply get out on packs (4) because they also love to share and have no problems about it."]])
+   [:p "I’ve come to known them, and I understand some will need to walk alone out of nervousness or aggressive behaviors. While others can simply get out on packs (4) because they also love to share and have no problems about it."]
+   ])
 
 (defn table []
   [:table.table.table-responsive-lg.table-bordered.contenido
    {:style {:position :relative :top "20px"}}
-   [:caption "*If you need any other services like: Bathing your Dog, two visits in a day, or, petsitting in my home we can talk about that too."]
+   [:caption {:style {:font-size :smaller :padding "0.5rem 0.2rem 0"}} "*All prices are per walk, discounts based on number of walks a week."]
+   [:caption {:style {:font-size :smaller :padding "0rem 0.2rem"}} "*If you need any other services like: Bathing your Dog, two visits in a day, or, petsitting in my home we can talk about that too."]
    [:thead
     [:tr
-     [:th "Services"] [:th "5 Days/W"] [:th "3 Days/W"] [:th "1 Day/W"]]]
+     [:th "Walks"] [:th "5 Days"] [:th "3 Days"] [:th "1 Day"]]]
    [:tbody
     [:tr
      [:td "Solo 30min"] [:td "$25.00"] [:td "$30.00"] [:td "$40.00"]]
@@ -37,7 +39,8 @@
   [:div.lead.contenido
    [:p "My services include picking up/bringing back your furry child, walking out with him/her for an thirty minutes or one hour, I’ll sent you pictures, and if I notice anything out of the ordinary I’ll let you know immediately."]
    [:p "My neighborhoods are: Richmond District, Laurel Heights, Presidio Heights, Cow Hollow and Haight-Ashbury."]
-   [:p "I like to know my doggies (and their parents) before taking them out, so go ahead an schedule an initial interview."]])
+   [:p "I like to know my doggies (and their parents) before taking them out, so go ahead an schedule an initial interview."]
+   ])
 
 (def features [{:id :dog-walker
                 :pull-class "float-right"
