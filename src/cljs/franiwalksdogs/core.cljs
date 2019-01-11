@@ -80,14 +80,14 @@
     [:div.col-12.d-none.d-lg-block
      [:section
       [:img {:class css-class :src image}]
-      [:h2.titulo text]
+      [:h2.titulo {:style {:text-align :left}} text]
       [element]]]))
 
 (defn feature-element-mobile [feature]
   (let [{:keys [text element image]} feature
         css-class (str "redondo img-circle img-fluid")]
     [:div.d-lg-none
-     [:div.col-12 [:h2.titulo text]]
+     [:div.col-12 [:h2.titulo {:style {:text-align :left}} text]]
      [:div
       [:div.col-12 [element]]
       [:div.col-12 {:style {:text-align :center}} [:img {:class css-class :src image}]]]]))
@@ -222,8 +222,7 @@
      (for [{:keys [id] :as feature} features]
        ^{:key id}
        [feature-element feature])
-     [:div.row.mb-3>div.col-12 
-      [table]]
+     [:div.row.mb-3>div.col-12 [table]]
      [:div.row>div.col-12 [contact]]
      [:hr]]))
 
