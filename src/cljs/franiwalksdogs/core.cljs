@@ -17,7 +17,7 @@
    [:p "I’ve come to known them, and I understand some will need to walk alone out of nervousness or aggressive behaviors. While others can simply get out on packs (4) because they also love to share and have no problems about it."]])
 
 (defn table []
-  [:table.table.table-responsive.table-bordered.contenido
+  [:table.table.table-responsive-lg.table-bordered.contenido
    {:style {:position :relative :top "20px"}}
    [:caption "*If you need any other services like: Bathing your Dog, two visits in a day, or, petsitting in my home we can talk about that too."]
    [:thead
@@ -74,7 +74,7 @@
    {:src "/images/frani_dog_walker.jpg"
     :style {:display "inline"}}])
 
-(defn feature-element-expanded [feature]
+(defn feature-element-desktop [feature]
   (let [{:keys [text element pull-class image]} feature
         css-class (str "redondo img-circle img-fluid " pull-class)]
     [:div.col-12.d-none.d-lg-block
@@ -94,7 +94,7 @@
 
 (defn feature-element [feature]
   [:div.row.mb-3 {:id (:id feature)}
-   [feature-element-expanded feature]
+   [feature-element-desktop feature]
    [feature-element-mobile feature]])
 
 (defn disable-event! [evt]
@@ -222,7 +222,8 @@
      (for [{:keys [id] :as feature} features]
        ^{:key id}
        [feature-element feature])
-     [:div.row.mb-3>div.col-12 [table]]
+     [:div.row.mb-3>div.col-12 
+      [table]]
      [:div.row>div.col-12 [contact]]
      [:hr]]))
 
