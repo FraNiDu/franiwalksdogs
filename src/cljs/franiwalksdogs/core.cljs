@@ -17,7 +17,7 @@
    [:p "I’ve come to known them, and I understand some will need to walk alone out of nervousness or aggressive behaviors. While others can simply get out on packs (4) because they also love to share and have no problems about it."]])
 
 (defn table []
-  [:table.table.table-bordered.contenido
+  [:table.table.table-responsive.table-bordered.contenido
    {:style {:position :relative :top "20px"}}
    [:caption "*If you need any other services like: Bathing your Dog, two visits in a day, or, petsitting in my home we can talk about that too."]
    [:thead
