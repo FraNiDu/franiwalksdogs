@@ -19,30 +19,19 @@
 (defn table []
   [:table.table.table-bordered.contenido
    {:style {:position :relative :top "20px"}}
-   [:caption "*If you need any other services like: Bathing your Dog, two visits in a day, or petsitting in my home we can talk about that too."]
+   [:caption "*If you need any other services like: Bathing your Dog, two visits in a day, or, petsitting in my home we can talk about that too."]
    [:thead
     [:tr
-     [:th "Services"]
-     [:th "5 Days"]
-     [:th "3 Days"]
-     [:th "1 Day"]]]
-
+     [:th "Services"] [:th "5 Days/W"] [:th "3 Days/W"] [:th "1 Day/W"]]]
    [:tbody
     [:tr
-     [:td "Friendly doggies (Dog Walked in groups up to four dogs, for 30 minutes.)"]
-     [:td "$20.00"]
-     [:td "$25.00"]
-     [:td "$30.00"]]
+     [:td "Solo 30min"] [:td "$25.00"] [:td "$30.00"] [:td "$40.00"]]
     [:tr
-     [:td "Walked in groups up to four dogs, for 60 minutes."]
-     [:td "$25.00"]
-     [:td "$30.00"]
-     [:td "$35.00"]]
+     [:td "Solo 60min"] [:td "$35.00"] [:td "$45.00"] [:td "$55.00"]]
     [:tr
-     [:td "Walked alone for 60 minutes."]
-     [:td "$30.00"]
-     [:td "$35.00"]
-     [:td "$40.00"]]]])
+     [:td "Group 30min"] [:td "$20.00"] [:td "$25.00"] [:td "$30.00"]]
+    [:tr
+     [:td "Group 60min"] [:td "$30.00"] [:td "$35.00"] [:td "$45.00"]]]])
 
 (defn pricing []
   [:div.lead.contenido
