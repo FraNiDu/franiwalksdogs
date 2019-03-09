@@ -19,7 +19,8 @@
 
 (defn table []
   [:table.table.table-responsive-lg.table-bordered.contenido
-   {:style {:position :relative :top "20px"}}
+   {:style {:position :relative
+            :top "20px"}}
    [:caption {:style {:font-size :smaller :padding "0.5rem 0.2rem 0"}} "*All prices are per walk, discounts based on number of walks a week."]
    [:caption {:style {:font-size :smaller :padding "0rem 0.2rem"}} "*If you need any other services like: Bathing your Dog, two visits in a day, or, petsitting in my home we can talk about that too."]
    [:thead
@@ -33,7 +34,20 @@
     [:tr
      [:td "Group 30min"] [:td "$20.00"] [:td "$25.00"] [:td "$30.00"]]
     [:tr
-     [:td "Group 60min"] [:td "$30.00"] [:td "$35.00"] [:td "$45.00"]]]])
+     [:td "Group 60min"] [:td "$30.00"] [:td "$35.00"] [:td "$45.00"]]]
+   [:thead
+    [:tr [:th {:col-span 4} "Boarding"]]]
+
+   [:tbody
+    [:tr
+     [:td "Week"] [:td {:col-span 3} "$60.00"]]
+    [:tr
+     [:td "Weekend"] [:td {:col-span 3}  "$80.00"]]]
+
+
+
+
+   ])
 
 (defn pricing []
   [:div.lead.contenido
